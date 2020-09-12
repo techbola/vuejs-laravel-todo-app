@@ -36,13 +36,17 @@ class TodoController extends Controller
         //
     }
 
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, $todo)
     {
-        //
+        $todo = Todo::findOrFail($todo);
+        $todo->update($request->all());
+        $todo->save();
     }
 
-    public function destroy(Todo $todo)
+    public function destroy($todo)
     {
-        //
+        $todo = Todo::findOrFail($todo);
+        $todo->delete();
+        return Todo::latest()->get();
     }
 }
